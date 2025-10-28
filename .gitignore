@@ -1,0 +1,8 @@
+# Pastas e arquivos do Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.dbmdl
+*.cache

@@ -1,0 +1,6 @@
+﻿namespace TreinamentosCorp.API.Controllers
+{
+    public class CursoController
+    {
+    }
+}
