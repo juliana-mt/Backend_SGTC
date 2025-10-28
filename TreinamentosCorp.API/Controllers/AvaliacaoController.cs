@@ -1,6 +1,46 @@
-﻿namespace TreinamentosCorp.API.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using TreinamentosCorp.API.DTOs;
+using TreinamentosCorp.API.Services.Interfaces;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AvaliacaoController : ControllerBase
 {
-    public class Class
+    private readonly IAvaliacaoService _avaliacaoService;
+    public AvaliacaoController(IAvaliacaoService avaliacaoService) => _avaliacaoService = avaliacaoService;
+
+    [HttpPost("criar")]
+    [Authorize(Roles = "Administrador,Gestor")]
+    public async Task<ActionResult<AvaliacaoDto>> Criar([FromBody] CreateAvaliacaoDto dto)
     {
+        var created = await _avaliacaoService.CreateAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
+
+    [HttpGet("{id}")]
+    [Authorize]
+    public async Task<ActionResult<AvaliacaoDTO>> GetById(int id)
+    {
+        var a = await _avaliacaoService.GetByIdAsync(id);
+        if (a == null) return NotFound();
+        return Ok(a);
+    }
+
+    // Submeter respostas de um usuário — service faz correção automática de objetivas e pede IA para discursivas
+    [HttpPost("{id}/responder")]
+    [Authorize]
+    public async Task<ActionResult<ResultadoAvaliacaoDto>> Submeter(int id, [FromBody] SubmeterAvaliacaoDto dto)
+    {
+        var resultado = await _avaliacaoService.SubmitAsync(id, dto);
+        if (resultado == null) return BadRequest("Erro ao submeter avaliação.");
+        return Ok(resultado);
+    }
+
+    [HttpGet("usuario/{usuarioId}")]
+    [Authorize]
+    public async Task<ActionResult<IEnumerable<ResultadoAvaliacaoDto>>> GetResultadosUsuario(int usuarioId) =>
+        Ok(await _avaliacaoService.GetResultadosByUsuarioAsync(usuarioId));
 }
