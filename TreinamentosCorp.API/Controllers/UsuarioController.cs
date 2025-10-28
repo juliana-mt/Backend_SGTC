@@ -1,18 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace TreinamentosCorp.API.Controllers
-{
-    public class Class
-    {
-    }
-}
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using TreinamentosCorp.API.DTOs;
-using TreinamentosCorp.API.Services.Interfaces;
+using TreinamentosCorp.API.Domain.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -23,12 +14,12 @@ public class UsuarioController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = "Administrador,Gestor")]
-    public async Task<ActionResult<IEnumerable<UsuarioDto>>> GetAll() =>
+    public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll() =>
         Ok(await _usuarioService.GetAllAsync());
 
     [HttpGet("{id}")]
     [Authorize]
-    public async Task<ActionResult<UsuarioDto>> GetById(int id)
+    public async Task<ActionResult<UsuarioDTO>> GetById(int id)
     {
         var user = await _usuarioService.GetByIdAsync(id);
         if (user == null) return NotFound();
@@ -37,7 +28,7 @@ public class UsuarioController : ControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<ActionResult<UsuarioDto>> Create([FromBody] CreateUsuarioDto dto)
+    public async Task<ActionResult<UsuarioDTO>> Create([FromBody] CreateUsuarioDto dto)
     {
         var created = await _usuarioService.CreateAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);

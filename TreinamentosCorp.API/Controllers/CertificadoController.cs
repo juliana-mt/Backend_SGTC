@@ -1,16 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace TreinamentosCorp.API.Controllers
-{
-    public class Class1
-    {
-    }
-}
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using TreinamentosCorp.API.Services.Interfaces;
+using TreinamentosCorp.API.Domain.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -19,7 +9,6 @@ public class CertificadoController : ControllerBase
     private readonly ICertificadoService _certService;
     public CertificadoController(ICertificadoService certService) => _certService = certService;
 
-    // Gera um certificado individual (retorna PDF ou link)
     [HttpPost("gerar")]
     [Authorize(Roles = "Administrador,Gestor")]
     public async Task<IActionResult> Gerar([FromBody] GerarCertificadoDto dto)
@@ -30,7 +19,6 @@ public class CertificadoController : ControllerBase
         return File(pdfBytes, "application/pdf", $"certificado_{dto.UsuarioId}_{dto.CursoId}.pdf");
     }
 
-    // Emissão em lote: gera e compacta em zip (exemplo simplificado)
     [HttpPost("gerar-lote")]
     [Authorize(Roles = "Administrador,Gestor")]
     public async Task<IActionResult> GerarLote([FromBody] GerarCertificadoLoteDto dto)

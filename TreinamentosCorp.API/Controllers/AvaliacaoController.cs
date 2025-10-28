@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using TreinamentosCorp.API.DTOs;
-using TreinamentosCorp.API.Services.Interfaces;
+using TreinamentosCorp.API.Domain.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -14,7 +12,7 @@ public class AvaliacaoController : ControllerBase
 
     [HttpPost("criar")]
     [Authorize(Roles = "Administrador,Gestor")]
-    public async Task<ActionResult<AvaliacaoDto>> Criar([FromBody] CreateAvaliacaoDto dto)
+    public async Task<ActionResult<AvaliacaoDTO>> Criar([FromBody] CreateAvaliacaoDto dto)
     {
         var created = await _avaliacaoService.CreateAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
@@ -29,7 +27,6 @@ public class AvaliacaoController : ControllerBase
         return Ok(a);
     }
 
-    // Submeter respostas de um usuário — service faz correção automática de objetivas e pede IA para discursivas
     [HttpPost("{id}/responder")]
     [Authorize]
     public async Task<ActionResult<ResultadoAvaliacaoDto>> Submeter(int id, [FromBody] SubmeterAvaliacaoDto dto)

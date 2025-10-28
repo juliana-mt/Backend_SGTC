@@ -5,7 +5,7 @@
         public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
-        public string Cargo { get; private set; } // "Gestor" ou "Funcionario"
+        public string Cargo { get; private set; }
         public bool Ativo { get; private set; }
 
         public Usuario(string nome, string email, string cargo)
