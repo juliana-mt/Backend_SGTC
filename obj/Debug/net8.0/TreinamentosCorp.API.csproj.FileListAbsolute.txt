@@ -1,0 +1,8 @@
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.csproj.AssemblyReference.cache
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.AssemblyInfoInputs.cache
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.AssemblyInfo.cs
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.csproj.CoreCompileInputs.cache
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\JULIA\Source\Repos\Backend_SGTC\TreinamentosCorp.API\obj\Debug\net8.0\TreinamentosCorp.API.sourcelink.json
