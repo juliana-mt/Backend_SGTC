@@ -53,9 +53,9 @@ public class MaterialService : IMaterialService
         };
     }
 
-    public async Task<IEnumerable<MaterialDTO>> ListarPorCursoAsync(int cursoId)
+    public async Task<IEnumerable<MaterialDTO>> GetAllAsync()
     {
-        var materiais = await _repository.GetByCursoAsync(cursoId);
+        var materiais = await _repository.GetAllAsync();
 
         return materiais.Select(m => new MaterialDTO
         {
@@ -67,4 +67,45 @@ public class MaterialService : IMaterialService
             Url = $"/uploads/materials/{m.NomeArquivo}"
         });
     }
+
+    public async Task<MaterialDTO> CreateAsync(CreateMaterialDTO dto)
+    {
+        // Criar material sem upload de arquivo
+        var material = new Material(
+            dto.CursoId,
+            dto.Titulo,
+            dto.Url,
+            "tipo" // Ajuste conforme necessário
+        );
+
+        await _repository.CreateAsync(material);
+
+        return new MaterialDTO
+        {
+            Id = material.Id,
+            IdCurso = material.IdCurso,
+            NomeArquivo = material.NomeArquivo,
+            Tipo = material.Tipo,
+            DataUpload = material.DataUpload,
+            Url = material.Caminho // ou dto.Url, conforme desejado
+        };
+    }
+
+    public async Task<MaterialDTO?> GetByIdAsync(int id)
+    {
+        var material = await _repository.GetByIdAsync(id);
+        if (material == null)
+            return null;
+
+        return new MaterialDTO
+        {
+            Id = material.Id,
+            IdCurso = material.IdCurso,
+            NomeArquivo = material.NomeArquivo,
+            Tipo = material.Tipo,
+            DataUpload = material.DataUpload,
+            Url = $"/uploads/materials/{material.NomeArquivo}"
+        };
+    }
+
 }

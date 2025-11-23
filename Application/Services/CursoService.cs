@@ -14,7 +14,7 @@ namespace TreinamentosCorp.API.Application.Services
             _cursoRepository = cursoRepository;
         }
 
-        public async Task<Curso> CreateAsync(CreateCursoDto dto)
+        public async Task<Curso> CreateAsync(CreateCursoDTO dto)
         {
             var curso = new Curso(dto.Nome, dto.Descricao);
             await _cursoRepository.CreateAsync(curso);

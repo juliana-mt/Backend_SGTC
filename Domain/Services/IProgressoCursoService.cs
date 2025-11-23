@@ -7,6 +7,6 @@ namespace TreinamentosCorp.API.Domain.Services
     {
         Task<bool> MarcarConclusaoAsync(MarcarProgressoDto dto);
         Task<IEnumerable<ProgressoCursoDto>> ListarPorUsuarioAsync(int idUsuario);
-        Task<ProgressoDetalhadoDto> CalcularProgressoAsync(int idUsuario, int idCurso);
+        Task<ProgressoDetalhadoDTO> CalcularProgressoAsync(int idUsuario, int idCurso);
     }
 }

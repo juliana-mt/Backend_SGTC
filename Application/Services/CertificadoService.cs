@@ -31,7 +31,7 @@ namespace TreinamentosCorp.API.Application.Services
             _avaliacaoRepository = avaliacaoRepository;
         }
 
-        public async Task<CertificadoDTO> GerarAsync(CreateCertificadoDto dto)
+        public async Task<CertificadoDTO> GerarAsync(CreateCertificadoDTO dto)
         {
             var codigo = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
             var certificado = new Certificado(dto.IdUsuario, dto.IdCurso, codigo);

@@ -1,6 +1,6 @@
 ﻿using TreinamentosCorp.API.DTOs.Requests;
 
-namespace TreinamentosCorp.API.Application.DTOs.Requests
+namespace TreinamentosCorp.API.DTOs.Requests
 {
     public class CreateMaterialDTO
     {

@@ -1,6 +1,6 @@
-﻿using TreinamentosCorp.API.DTOs;
+﻿using TreinamentosCorp.API.DTOs.Responses;
 
-namespace TreinamentosCorp.API.DTOs
+namespace TreinamentosCorp.API.DTOs.Responses
 {
     public class UsuarioDTO
     {

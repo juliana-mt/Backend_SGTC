@@ -15,7 +15,7 @@ namespace TreinamentosCorp.API.Application.Services
             _progressoRepository = progressoRepository;
         }
 
-        public async Task<bool> MarcarConclusaoAsync(MarcarProgressoDTO dto)
+        public async Task<bool> MarcarConclusaoAsync(MarcarProgressoDto dto)
         {
             if (await _progressoRepository.ExisteAsync(dto.IdUsuario, dto.IdModulo))
                 return false;
@@ -26,11 +26,11 @@ namespace TreinamentosCorp.API.Application.Services
             return true;
         }
 
-        public async Task<IEnumerable<ProgressoCursoDTO>> ListarPorUsuarioAsync(int idUsuario)
+        public async Task<IEnumerable<ProgressoCursoDto>> ListarPorUsuarioAsync(int idUsuario)
         {
             var lista = await _progressoRepository.ListarPorUsuarioAsync(idUsuario);
 
-            return lista.Select(p => new ProgressoCursoDTO
+            return lista.Select(p => new ProgressoCursoDto
             {
                 Id = p.Id,
                 IdUsuario = p.IdUsuario,

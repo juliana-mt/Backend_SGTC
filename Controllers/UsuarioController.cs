@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using TreinamentosCorp.API.DTOs;
+using TreinamentosCorp.API.DTOs.Requests;
+using TreinamentosCorp.API.DTOs.Responses;
 using TreinamentosCorp.API.Domain.Services;
 
 [ApiController]

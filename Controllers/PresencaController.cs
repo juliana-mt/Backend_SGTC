@@ -13,7 +13,7 @@ public class PresencaController : ControllerBase
 
     [HttpPost("registrar")]
     [Authorize]
-    public async Task<ActionResult<PresencaDto>> Registrar([FromBody] CreatePresencaDTO dto)
+    public async Task<ActionResult<PresencaDto>> Registrar([FromBody] CreatePresencaDto dto)
     {
         var presenca = await _service.RegistrarAsync(dto);
         return CreatedAtAction(nameof(ListarPorUsuario), new { usuarioId = presenca.IdUsuario }, presenca);

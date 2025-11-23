@@ -1386,11 +1386,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTC\\TreinamentosCorp.API\\TreinamentosCorp.API.csproj",
+      "projectUniqueName": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTCc\\TreinamentosCorp.API.csproj",
       "projectName": "TreinamentosCorp.API",
-      "projectPath": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTC\\TreinamentosCorp.API\\TreinamentosCorp.API.csproj",
+      "projectPath": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTCc\\TreinamentosCorp.API.csproj",
       "packagesPath": "C:\\Users\\JULIA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTC\\TreinamentosCorp.API\\obj\\",
+      "outputPath": "C:\\Users\\JULIA\\source\\repos\\Backend_SGTCc\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

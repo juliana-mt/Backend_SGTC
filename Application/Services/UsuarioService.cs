@@ -23,30 +23,26 @@ namespace TreinamentosCorp.API.Application.Services
             return await _usuarioRepository.GetByIdAsync(id);
         }
 
-        public async Task<Usuario> CriarAsync(string nome, string email, string cargo, string senhaHash)
+        // Mudança: Assinatura conforme interface (recebe Usuario)
+        public async Task CriarAsync(Usuario usuario)
         {
-            var usuario = new Usuario(nome, email, cargo, senhaHash);
             await _usuarioRepository.CreateAsync(usuario);
-            return usuario;
         }
 
-        public async Task<Usuario?> AtualizarAsync(int id, string nome, string email, string cargo)
+        // Mudança: Assinatura conforme interface (recebe Usuario)
+        public async Task AtualizarAsync(Usuario usuario)
         {
-            var usuario = await _usuarioRepository.GetByIdAsync(id);
-            if (usuario == null) return null;
-
-            usuario.Atualizar(nome, email, cargo);
             await _usuarioRepository.UpdateAsync(usuario);
-
-            return usuario;
         }
 
-        public async Task<bool> DeletarAsync(int id)
+        // Mudança: Método para desativar usuário (implementação baseada no método DeletarAsync)
+        public async Task<bool> DesativarAsync(int id)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(id);
             if (usuario == null) return false;
 
-            await _usuarioRepository.DeleteAsync(id);
+            usuario.Ativo = false; // Exemplo para desativar
+            await _usuarioRepository.UpdateAsync(usuario);
             return true;
         }
     }

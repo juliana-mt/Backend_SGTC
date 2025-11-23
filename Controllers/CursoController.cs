@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using TreinamentosCorp.API.DTOs;
+using TreinamentosCorp.API.DTOs.Responses;
 using TreinamentosCorp.API.DTOs.Requests;
 using TreinamentosCorp.API.Domain.Services;
 
@@ -13,7 +13,7 @@ public class CursoController : ControllerBase
 
     [HttpPost("criar")]
     [Authorize(Roles = "Administrador,Gestor")]
-    public async Task<ActionResult<CursoDTO>> Criar([FromBody] CreateCursoDto dto)
+    public async Task<ActionResult<CursoDTO>> Criar([FromBody] CreateCursoDTO dto)
     {
         var curso = await _cursoService.CreateAsync(dto);
         if (curso == null) return BadRequest("Não foi possível criar o curso.");

@@ -13,7 +13,7 @@ public class CertificadoController : ControllerBase
 
     [HttpPost("gerar")]
     [Authorize(Roles = "Administrador,Gestor")]
-    public async Task<ActionResult<CertificadoDTO>> Gerar([FromBody] CreateCertificadoDto dto)
+    public async Task<ActionResult<CertificadoDTO>> Gerar([FromBody] CreateCertificadoDTO dto)
     {
         var certificado = await _service.GerarAsync(dto);
         return CreatedAtAction(nameof(GetPorUsuario), new { Idusuario = certificado.IdUsuario }, certificado);

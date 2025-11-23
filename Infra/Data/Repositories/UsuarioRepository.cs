@@ -1,10 +1,11 @@
 ﻿using TreinamentosCorp.API.Domain.Entities;
 using TreinamentosCorp.API.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using TreinamentosCorp.API.Infra.Data.Context;
 
 namespace TreinamentosCorp.API.Infra.Data.Repositories
 {
-    public class UsuarioRepository : nIUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly AppDbContext _context;
 
@@ -23,16 +24,18 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
             return await _context.Usuarios.FindAsync(id);
         }
 
-        public async Task CriarAsync(Usuario usuario)
+        public async Task<Usuario> CriarAsync(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
+            return usuario;  // retorna o usuário criado
         }
 
-        public async Task AtualizarAsync(Usuario usuario)
+        public async Task<Usuario> AtualizarAsync(Usuario usuario)
         {
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
+            return usuario;  // retorna o usuário atualizado
         }
 
         public async Task<bool> DesativarAsync(int id)
