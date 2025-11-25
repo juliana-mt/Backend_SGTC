@@ -31,4 +31,9 @@ public class MaterialRepository : IMaterialRepository
         return await _context.Materiais
             .FirstOrDefaultAsync(m => m.Id == id);
     }
+
+    public async Task<IEnumerable<Material>> GetAllAsync()
+    {
+        return await _context.Materiais.ToListAsync();
+    }
 }

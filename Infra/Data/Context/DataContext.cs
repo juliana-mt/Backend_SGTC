@@ -52,13 +52,16 @@ namespace TreinamentosCorp.API.Infra.Data.Context
                 entity.ToTable("Perguntas");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Texto).HasMaxLength(500).IsRequired();
-                entity.Property(e => e.Opcoes)
-                .HasConversion(
-                    v => System.Text.Json.JsonSerializer.Serialize(v, (System.Text.Json.JsonSerializerOptions)null),
-                    v => System.Text.Json.JsonSerializer.Deserialize<List<string>>(v, (System.Text.Json.JsonSerializerOptions)null)
-                )
-                .HasColumnType("TEXT");
 
+                entity.Property(e => e.Opcoes)
+                    .HasConversion(
+                        v => System.Text.Json.JsonSerializer.Serialize(v, (System.Text.Json.JsonSerializerOptions?)null),
+                        v => string.IsNullOrEmpty(v)
+                            ? new List<string>()
+                            : System.Text.Json.JsonSerializer.Deserialize<List<string>>(v, (System.Text.Json.JsonSerializerOptions?)null)
+                              ?? new List<string>()
+                    )
+                    .HasColumnType("TEXT");
             });
 
             // ----------- Certificado --------------
@@ -102,6 +105,7 @@ namespace TreinamentosCorp.API.Infra.Data.Context
                 entity.ToTable("ProgressoCursos");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.IdUsuario).IsRequired();
+                entity.Property(e => e.IdCurso).IsRequired();
                 entity.Property(e => e.IdModulo).IsRequired();
                 entity.Property(e => e.DataConclusao).IsRequired();
             });

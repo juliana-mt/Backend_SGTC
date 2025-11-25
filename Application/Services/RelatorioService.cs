@@ -30,12 +30,17 @@ namespace TreinamentosCorp.API.Application.Services
 
             foreach (var p in progresso)
             {
-                var curso = await _cursoRepository.GetByIdAsync(p.IdModulo); 
+                var curso = await _cursoRepository.ObterPorIdAsync(p.IdModulo);
+                if (curso == null) continue; // evita desreferência nula
+
                 var nota = await _avaliacaoRepository.ObterNotaFinalAsync(usuarioId, curso.Id);
+
+                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
+
                 lista.Add(new RelatorioUsuarioDTO
                 {
                     IdUsuario = usuarioId,
-                    NomeUsuario = (await _usuarioRepository.GetByIdAsync(usuarioId))?.Nome ?? "Usuário",
+                    NomeUsuario = usuario?.Nome ?? "Usuário",
                     Curso = curso.Nome,
                     Nota = nota ?? 0,
                     Concluido = true,
@@ -46,15 +51,19 @@ namespace TreinamentosCorp.API.Application.Services
             return lista;
         }
 
+
         public async Task<IEnumerable<RelatorioCursoDTO>> GerarPorCursoAsync(int cursoId)
         {
-            var modulos = await _cursoRepository.GetByIdAsync(cursoId);
-            var progresso = await _progressoRepository.ListarPorCursoAsync(cursoId); 
+            var curso = await _cursoRepository.ObterPorIdAsync(cursoId);
+            if (curso == null) return Enumerable.Empty<RelatorioCursoDTO>();
+
+            var progresso = await _progressoRepository.ListarPorCursoAsync(cursoId);
             var lista = new List<RelatorioCursoDTO>();
 
             var totalAlunos = progresso.Select(p => p.IdUsuario).Distinct().Count();
             var concluintes = progresso.GroupBy(p => p.IdUsuario)
-                                       .Count(g => g.All(m => m.DataConclusao != null));
+                           .Count(g => g.All(m => m.DataConclusao > DateTime.MinValue));
+
 
             var notas = new List<double>();
             foreach (var usuarioId in progresso.Select(p => p.IdUsuario).Distinct())
@@ -66,7 +75,7 @@ namespace TreinamentosCorp.API.Application.Services
             lista.Add(new RelatorioCursoDTO
             {
                 IdCurso = cursoId,
-                NomeCurso = modulos.Nome,
+                NomeCurso = curso.Nome,
                 TotalAlunos = totalAlunos,
                 Concluintes = concluintes,
                 NotaMedia = notas.Count > 0 ? notas.Average() : 0
@@ -74,5 +83,6 @@ namespace TreinamentosCorp.API.Application.Services
 
             return lista;
         }
+
     }
 }

@@ -1,17 +1,23 @@
-﻿public class Avaliacao
+﻿namespace TreinamentosCorp.API.Domain.Entities
 {
-    public int Id { get; private set; }
-    public int IdUsuario { get; private set; }
-    public int IdCurso { get; private set; }
-    public int Nota { get; private set; }
-    public string Comentario { get; private set; } = string.Empty;
-
-    public Avaliacao(int idUsuario, int idCurso)
+    public class Avaliacao
     {
-        IdUsuario = idUsuario;
-        IdCurso = idCurso;
-    }
+        public int Id { get; private set; }
+        public int IdUsuario { get; private set; }
+        public int IdCurso { get; private set; }
+        public int Nota { get; private set; }
+        public string Comentario { get; private set; } = string.Empty;
+        public List<Pergunta> Perguntas { get; private set; }  // Declaração da propriedad
 
-    public void DefinirNota(int nota) => Nota = nota;
-    public void DefinirComentario(string comentario) => Comentario = comentario;
+        public Avaliacao(int idUsuario, int idCurso, List<Pergunta> perguntas)
+        {
+            IdUsuario = idUsuario;
+            IdCurso = idCurso;
+            Perguntas = perguntas;
+        }
+
+        public void DefinirNota(int nota) => Nota = nota;
+        public void DefinirComentario(string comentario) => Comentario = comentario;
+    }
 }
+

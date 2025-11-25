@@ -40,7 +40,9 @@ builder.Services.AddScoped<IProgressoCursoRepository, ProgressoCursoRepository>(
 builder.Services.AddScoped<IProgressoCursoService, ProgressoCursoService>();
 
 builder.Services.AddScoped<IRelatorioService, RelatorioService>();
-// builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>(); // se você tiver criado
+
+builder.Services.AddScoped<IModuloRepository, ModuloRepository>();
+
 
 // -------------------------
 //       MVC / SWAGGER
@@ -50,6 +52,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Garante que a pasta Uploads existe
+var uploadsPath = Path.Combine(builder.Environment.ContentRootPath, "Uploads");
+Directory.CreateDirectory(uploadsPath);
 
 // -------------------------
 //       MIDDLEWARES
@@ -61,6 +67,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadsPath),
+    RequestPath = "/uploads"
+});
+
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
+
 
 // ✅ Permite acesso à pasta "Uploads"
 app.UseStaticFiles();

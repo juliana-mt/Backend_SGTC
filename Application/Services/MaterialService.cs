@@ -3,6 +3,12 @@ using TreinamentosCorp.API.Domain.Repositories;
 using TreinamentosCorp.API.Domain.Services;
 using TreinamentosCorp.API.DTOs.Requests;
 using TreinamentosCorp.API.DTOs.Responses;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class MaterialService : IMaterialService
 {
@@ -17,7 +23,6 @@ public class MaterialService : IMaterialService
 
     public async Task<MaterialDTO> UploadAsync(UploadMaterialDto dto)
     {
-        // Caminho: wwwroot/uploads/materials
         var folder = Path.Combine(_env.WebRootPath, "uploads", "materials");
 
         if (!Directory.Exists(folder))
@@ -70,12 +75,11 @@ public class MaterialService : IMaterialService
 
     public async Task<MaterialDTO> CreateAsync(CreateMaterialDTO dto)
     {
-        // Criar material sem upload de arquivo
         var material = new Material(
             dto.CursoId,
             dto.Titulo,
             dto.Url,
-            "tipo" // Ajuste conforme necessário
+            "tipo" // Ajuste conforme necessidade
         );
 
         await _repository.CreateAsync(material);
@@ -87,7 +91,7 @@ public class MaterialService : IMaterialService
             NomeArquivo = material.NomeArquivo,
             Tipo = material.Tipo,
             DataUpload = material.DataUpload,
-            Url = material.Caminho // ou dto.Url, conforme desejado
+            Url = material.Caminho // ou dto.Url
         };
     }
 
@@ -108,4 +112,19 @@ public class MaterialService : IMaterialService
         };
     }
 
+    public async Task<IEnumerable<MaterialDTO>> ListarPorCursoAsync(int idCurso)
+    {
+        var materiais = await _repository.GetByCursoAsync(idCurso);
+
+        // Conversão manual sem usar AutoMapper
+        return materiais.Select(m => new MaterialDTO
+        {
+            Id = m.Id,
+            IdCurso = m.IdCurso,
+            NomeArquivo = m.NomeArquivo,
+            Tipo = m.Tipo,
+            DataUpload = m.DataUpload,
+            Url = $"/uploads/materials/{m.NomeArquivo}"
+        });
+    }
 }

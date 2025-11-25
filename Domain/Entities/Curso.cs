@@ -7,6 +7,8 @@
         public string Descricao { get; private set; } = string.Empty;
         public bool Ativo { get; private set; }
         public int NotaMinima { get; private set; } = 60;
+        public int CargaHoraria { get; private set; }
+
 
         public Curso(string nome, string descricao)
         {

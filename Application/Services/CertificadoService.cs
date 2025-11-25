@@ -3,6 +3,7 @@ using TreinamentosCorp.API.Domain.Repositories;
 using TreinamentosCorp.API.Domain.Services;
 using TreinamentosCorp.API.DTOs.Requests;
 using TreinamentosCorp.API.DTOs.Responses;
+using TreinamentosCorp.API.Infra.Pdf;
 
 namespace TreinamentosCorp.API.Application.Services
 {
@@ -76,7 +77,9 @@ namespace TreinamentosCorp.API.Application.Services
             if (!concluiuTodos)
                 return null;
 
-            var curso = await _cursoRepository.GetByIdAsync(cursoId);
+            var curso = await _cursoRepository.ObterPorIdAsync(cursoId);
+            if (curso == null) return null;
+
             var notaFinal = await _avaliacaoRepository.ObterNotaFinalAsync(usuarioId, cursoId);
 
             if (curso.NotaMinima > 0 && notaFinal.HasValue && notaFinal.Value < curso.NotaMinima)
@@ -100,8 +103,8 @@ namespace TreinamentosCorp.API.Application.Services
         
         private async Task<CertificadoDTO> MontarDto(Certificado cert)
         {
-            var usuario = await _usuarioRepository.GetByIdAsync(cert.IdUsuario);
-            var curso = await _cursoRepository.GetByIdAsync(cert.IdCurso);
+            var usuario = await _usuarioRepository.ObterPorIdAsync(cert.IdUsuario);
+            var curso = await _cursoRepository.ObterPorIdAsync(cert.IdCurso);
 
             return new CertificadoDTO
             {

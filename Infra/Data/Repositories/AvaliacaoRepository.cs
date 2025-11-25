@@ -40,7 +40,7 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
 
             foreach (var resposta in dto.Respostas)
             {
-                var pergunta = avaliacao.Perguntas.FirstOrDefault(p => p.Id == resposta.PerguntaId);
+                var pergunta = avaliacao.Perguntas.FirstOrDefault(p => p.Id == resposta.IdPergunta);
                 if (pergunta != null && pergunta.RespostaCorreta == resposta.OpcaoSelecionada)
                     acertos++;
             }

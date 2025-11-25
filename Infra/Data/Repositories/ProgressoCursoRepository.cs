@@ -32,5 +32,13 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
                 .Where(p => p.IdUsuario == idUsuario)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<ProgressoCurso>> ListarPorCursoAsync(int idCurso)
+        {
+            return await _context.ProgressoCursos
+                .Where(p => p.IdCurso == idCurso)
+                .ToListAsync();
+        }
+
     }
 }

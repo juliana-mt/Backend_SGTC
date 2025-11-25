@@ -2,6 +2,9 @@
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using TreinamentosCorp.API.DTOs.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class RelatorioPdfGenerator
 {
@@ -34,8 +37,8 @@ public class RelatorioPdfGenerator
                     {
                         columns.RelativeColumn(2);
                         columns.RelativeColumn(1);
-                        columns.RelativeColumn(1); 
-                        columns.RelativeColumn(1); 
+                        columns.RelativeColumn(1);
+                        columns.RelativeColumn(1);
                     });
 
                     // Cabeçalho da tabela
@@ -94,12 +97,20 @@ public class RelatorioPdfGenerator
                     col.Item().Text($"• Concluintes: {curso.Concluintes}");
                     col.Item().Text($"• Nota Média: {curso.NotaMedia:N2}");
 
-                    col.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Grey.Darken2);
+                    // LineHorizontal aplicado em um Item (container)
+                    col.Item()
+                       .PaddingVertical(10)
+                       .BorderBottom(1)
+                       .BorderColor(Colors.Grey.Darken2);
 
-                    col.Item().Text("Observações:")
-                        .FontSize(14).Bold();
+                    col.Item()
+                       .PaddingTop(10)
+                       .Text("Observações:")
+                       .FontSize(14).Bold();
 
-                    col.Item().Text("Este relatório contém as informações gerais do curso, permitindo acompanhamento do desempenho dos alunos.");
+                    col.Item()
+                       .PaddingTop(5)
+                       .Text("Este relatório contém as informações gerais do curso, permitindo acompanhamento do desempenho dos alunos.");
                 });
 
                 // Rodapé

@@ -17,7 +17,7 @@ namespace TreinamentosCorp.API.Infra.Pdf
                 {
                     page.Size(PageSizes.A4.Landscape());
                     page.Margin(40);
-                    page.PageColor("#FFFFFF");
+                    page.PageColor(Colors.White);
 
                     page.Header().AlignCenter().Column(col =>
                     {
@@ -30,28 +30,44 @@ namespace TreinamentosCorp.API.Infra.Pdf
 
                     page.Content().PaddingVertical(30).Column(col =>
                     {
-                        col.Item().Text($"Certificamos que ")
+                        col.Item().Text("Certificamos que")
                             .FontSize(18).FontColor("#444");
 
                         col.Item().Text(dto.NomeUsuario)
                             .FontSize(36).Bold().FontColor("#000").Underline();
 
-                        col.Item().Text("concluiu com êxito o curso:")
-                            .FontSize(18).FontColor("#444").PaddingTop(20);
+                        // PaddingTop aplicado no Item (container), não no Text
+                        col.Item()
+                           .PaddingTop(20)
+                           .Text("concluiu com êxito o curso:")
+                           .FontSize(18).FontColor("#444");
 
                         col.Item().Text(dto.NomeCurso)
                             .FontSize(30).Bold().FontColor("#000");
 
-                        col.Item().Text($"Carga horária: {dto.CargaHoraria} horas")
-                            .FontSize(18).FontColor("#444").PaddingTop(20);
+                        // PaddingTop no Item
+                        col.Item()
+                           .PaddingTop(20)
+                           .Text($"Carga horária: {dto.CargaHoraria} horas")
+                           .FontSize(18).FontColor("#444");
 
-                        col.Item().Text($"Data de emissão: {dto.DataEmissao:dd/MM/yyyy}")
-                            .FontSize(16).FontColor("#666").PaddingTop(10);
+                        // PaddingTop no Item
+                        col.Item()
+                           .PaddingTop(10)
+                           .Text($"Data de emissão: {dto.DataEmissao:dd/MM/yyyy}")
+                           .FontSize(16).FontColor("#666");
 
-                        col.Item().PaddingTop(30).BorderBottom(1).BorderColor("#AAA");
+                        col.Item()
+                           .PaddingTop(30)
+                           .BorderBottom(1)
+                           .BorderColor("#AAA");
 
-                        col.Item().PaddingTop(20).AlignCenter().Text($"Código de validação: {dto.CodigoValidacao}")
-                            .FontSize(14).FontColor("#777");
+                        col.Item()
+                           .PaddingTop(20)
+                           .AlignCenter()
+                           .Text($"Código de validação: {dto.CodigoValidacao}")
+                           .FontSize(14)
+                           .FontColor("#777");
                     });
 
                     page.Footer().AlignCenter().Column(col =>

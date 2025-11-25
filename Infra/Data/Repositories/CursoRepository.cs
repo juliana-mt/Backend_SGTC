@@ -26,7 +26,7 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
             return await _context.Cursos.ToListAsync();
         }
 
-        public async Task<Curso?> GetByIdAsync(int id)
+        public async Task<Curso?> ObterPorIdAsync(int id)
         {
             return await _context.Cursos.FirstOrDefaultAsync(c => c.Id == id);
         }

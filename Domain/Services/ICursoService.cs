@@ -7,6 +7,6 @@ namespace TreinamentosCorp.API.Domain.Services
     {
         Task<Curso> CreateAsync(CreateCursoDTO dto);
         Task<IEnumerable<Curso>> GetAllAsync();
-        Task<Curso?> GetByIdAsync(int id);
+        Task<Curso?> ObterPorIdAsync(int id);
     }
 }

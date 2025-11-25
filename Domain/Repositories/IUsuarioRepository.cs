@@ -8,6 +8,8 @@ namespace TreinamentosCorp.API.Domain.Repositories
         Task<Usuario?> ObterPorIdAsync(int id);
         Task<Usuario> CriarAsync(Usuario usuario);
         Task<Usuario> AtualizarAsync(Usuario usuario);
-        Task<bool> DesativarAsync(int id);
+        Task<bool> DesativarUsuarioAsync(int id);
+        Task AtivarUsuarioAsync(int id);
+        Task<Usuario?> GetByEmailAsync(string email);
     }
 }

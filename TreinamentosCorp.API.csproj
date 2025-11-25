@@ -7,13 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Uploads\uploads\**" />
+    <Content Remove="Uploads\uploads\**" />
+    <EmbeddedResource Remove="Uploads\uploads\**" />
+    <None Remove="Uploads\uploads\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="QuestPDF" Version="2025.7.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\uploads\materials\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
 
 </Project>

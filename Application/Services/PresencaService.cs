@@ -17,7 +17,7 @@ namespace TreinamentosCorp.API.Application.Services
 
         public async Task<PresencaDto> RegistrarAsync(CreatePresencaDto dto)
         {
-            var presenca = new Presenca(dto.IdUsuario, dto.IdCurso, dto.Data, dto.Presente);
+            var presenca = new Presenca(dto.IdUsuario, dto.IdCurso, dto.DataPresenca, dto.Presente);
             var criada = await _repository.CriarAsync(presenca);
 
             return new PresencaDto

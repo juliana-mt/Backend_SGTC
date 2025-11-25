@@ -7,9 +7,9 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private readonly AppDbContext _context;
+        private readonly DataContext _context;
 
-        public UsuarioRepository(AppDbContext context)
+        public UsuarioRepository(DataContext context)
         {
             _context = context;
         }
@@ -38,17 +38,31 @@ namespace TreinamentosCorp.API.Infra.Data.Repositories
             return usuario;  // retorna o usuário atualizado
         }
 
-        public async Task<bool> DesativarAsync(int id)
+        public async Task<bool> DesativarUsuarioAsync(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
                 return false;
 
-            usuario.Ativo = false;
+            usuario.Desativar();
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
             return true;
         }
 
+        public async Task AtivarUsuarioAsync(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+                throw new Exception("Usuário não encontrado");
+
+            usuario.Ativar();  // Usa método público para alterar propriedade privada
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Usuario?> GetByEmailAsync(string email)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }

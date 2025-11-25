@@ -26,9 +26,9 @@ namespace TreinamentosCorp.API.Application.Services
             return await _cursoRepository.GetAllAsync();
         }
 
-        public async Task<Curso?> GetByIdAsync(int id)
+        public async Task<Curso?> ObterPorIdAsync(int id)
         {
-            return await _cursoRepository.GetByIdAsync(id);
+            return await _cursoRepository.ObterPorIdAsync(id);
         }
     }
 }

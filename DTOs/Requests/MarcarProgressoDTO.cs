@@ -5,6 +5,7 @@ namespace TreinamentosCorp.API.DTOs.Requests
     public class MarcarProgressoDto
     {
         public int IdUsuario { get; set; }
+        public int IdCurso { get; set; }
         public int IdModulo { get; set; }
     }
 }

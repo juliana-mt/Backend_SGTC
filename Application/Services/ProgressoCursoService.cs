@@ -3,16 +3,19 @@ using TreinamentosCorp.API.Domain.Repositories;
 using TreinamentosCorp.API.Domain.Services;
 using TreinamentosCorp.API.DTOs.Requests;
 using TreinamentosCorp.API.DTOs.Responses;
+using System.Linq;
 
 namespace TreinamentosCorp.API.Application.Services
 {
     public class ProgressoCursoService : IProgressoCursoService
     {
         private readonly IProgressoCursoRepository _progressoRepository;
+        private readonly IModuloRepository _moduloRepository;
 
-        public ProgressoCursoService(IProgressoCursoRepository progressoRepository)
+        public ProgressoCursoService(IProgressoCursoRepository progressoRepository, IModuloRepository moduloRepository)
         {
             _progressoRepository = progressoRepository;
+            _moduloRepository = moduloRepository;
         }
 
         public async Task<bool> MarcarConclusaoAsync(MarcarProgressoDto dto)
@@ -20,7 +23,7 @@ namespace TreinamentosCorp.API.Application.Services
             if (await _progressoRepository.ExisteAsync(dto.IdUsuario, dto.IdModulo))
                 return false;
 
-            var progresso = new ProgressoCurso(dto.IdUsuario, dto.IdModulo);
+            var progresso = new ProgressoCurso(dto.IdUsuario, dto.IdModulo, dto.IdCurso);
             await _progressoRepository.RegistrarAsync(progresso);
 
             return true;

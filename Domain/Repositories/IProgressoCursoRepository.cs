@@ -7,5 +7,8 @@ namespace TreinamentosCorp.API.Domain.Repositories
         Task RegistrarAsync(ProgressoCurso progresso);
         Task<bool> ExisteAsync(int idUsuario, int idModulo);
         Task<IEnumerable<ProgressoCurso>> ListarPorUsuarioAsync(int idUsuario);
+        Task<IEnumerable<ProgressoCurso>> ListarPorCursoAsync(int idCurso);
+
+
     }
 }

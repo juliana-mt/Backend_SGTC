@@ -26,7 +26,7 @@ namespace TreinamentosCorp.API.Application.Services
             var senhaHash = HashPassword(dto.Senha);
             var usuario = new Usuario(dto.Nome, dto.Email, "Padrão", senhaHash);
 
-            await _usuarioRepository.CreateAsync(usuario);
+            await _usuarioRepository.CriarAsync(usuario);
 
             return new AuthResult { Sucesso = true, Mensagem = "Usuário registrado com sucesso." };
         }

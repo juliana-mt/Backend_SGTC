@@ -48,7 +48,7 @@ public class CursoController : ControllerBase
     [Authorize]
     public async Task<ActionResult<CursoDTO>> GetById(int id)
     {
-        var curso = await _cursoService.GetByIdAsync(id);
+        var curso = await _cursoService.ObterPorIdAsync(id);
         if (curso == null) return NotFound();
 
         var cursoDto = new CursoDTO

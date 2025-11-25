@@ -4,8 +4,8 @@ namespace TreinamentosCorp.API.DTOs.Requests
 {
     public class CreatePresencaDto
     {
-        public int UsuarioId { get; set; }
-        public int TreinamentoId { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdCurso{ get; set; }
         public DateTime DataPresenca { get; set; } = DateTime.UtcNow;
         public bool Presente { get; set; }
     }
