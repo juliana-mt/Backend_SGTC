@@ -18,30 +18,36 @@ public class ModuloController : ControllerBase
     // Upload de vídeo/PDF + criação do módulo
     [HttpPost("upload")]
     [Authorize(Roles = "Administrador,Gestor")]
-    public async Task<ActionResult<ModuloDto>> UploadModulo(
-        [FromForm] CreateModuloDto dto,
-        [FromForm] IFormFile arquivo)
+    [Consumes("multipart/form-data")]
+    public async Task<ActionResult<ModuloDto>> UploadModulo([FromForm] UploadMaterialDto dto)
     {
-        if (arquivo == null || arquivo.Length == 0)
+        if (dto.Arquivo == null || dto.Arquivo.Length == 0)
             return BadRequest("Arquivo inválido.");
 
         var pasta = Path.Combine("wwwroot", "uploads");
         Directory.CreateDirectory(pasta);
 
-        var caminhoArquivo = Path.Combine(pasta, arquivo.FileName);
+        var caminhoArquivo = Path.Combine(pasta, dto.Arquivo.FileName);
 
         using (var stream = System.IO.File.Create(caminhoArquivo))
         {
-            await arquivo.CopyToAsync(stream);
+            await dto.Arquivo.CopyToAsync(stream);
         }
 
-        var caminhoPublico = $"/uploads/{arquivo.FileName}";
+        var caminhoPublico = $"/uploads/{dto.Arquivo.FileName}";
 
-        var modulo = await _moduloService.CriarAsync(dto, caminhoPublico);
+        // aqui você adapta para chamar o serviço com IdCurso + caminho do arquivo
+        var modulo = await _moduloService.CriarAsync(
+        new CreateModuloDto
+        {
+            IdCurso = dto.IdCurso,
+            // preencha aqui os outros campos obrigatórios (Título, etc.), se existirem
+        },
+        caminhoPublico
+    );
 
         return Ok(modulo);
     }
-
     // Listar módulos de um curso
     [HttpGet("curso/{cursoId}")]
     [Authorize]
