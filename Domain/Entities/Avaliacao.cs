@@ -7,7 +7,10 @@
         public int IdCurso { get; private set; }
         public int Nota { get; private set; }
         public string Comentario { get; private set; } = string.Empty;
-        public List<Pergunta> Perguntas { get; private set; }  // Declaração da propriedad
+        public List<Pergunta> Perguntas { get; private set; } = new(); // inicializa
+
+        // Construtor sem parâmetros para o EF
+        private Avaliacao() { }
 
         public Avaliacao(int idUsuario, int idCurso, List<Pergunta> perguntas)
         {
@@ -20,4 +23,3 @@
         public void DefinirComentario(string comentario) => Comentario = comentario;
     }
 }
-
