@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TreinamentosCorp.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55b207d12f37b7bb5309ed7c00199b4f0b8a99cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3409804e2853abba65a9454cc14cfb640257b61c")]
 [assembly: System.Reflection.AssemblyProductAttribute("TreinamentosCorp.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TreinamentosCorp.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
