@@ -21,27 +21,27 @@ builder.Services.AddDbContext<DataContext>(options =>
 // -------------------------
 //       DEPENDÊNCIAS
 // -------------------------
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
-builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
+builder.Services.AddScoped<IAssessmentRepository, AssessmentRepository>();
+builder.Services.AddScoped<IAssessmentService, AssessmentService>();
 
-builder.Services.AddScoped<ICertificadoRepository, CertificadoRepository>();
-builder.Services.AddScoped<ICertificadoService, CertificadoService>();
+builder.Services.AddScoped<ICertificateRepository, CertificateRepository>();
+builder.Services.AddScoped<ICertificateService, CertificateService>();
 
-builder.Services.AddScoped<ICursoRepository, CursoRepository>();
-builder.Services.AddScoped<ICursoService, CursoService>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 
-builder.Services.AddScoped<IProgressoCursoRepository, ProgressoCursoRepository>();
-builder.Services.AddScoped<IProgressoCursoService, ProgressoCursoService>();
+builder.Services.AddScoped<IProgressoCursoRepository, CourseProgressRepository>();
+builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 
-builder.Services.AddScoped<IRelatorioService, RelatorioService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
-builder.Services.AddScoped<IModuloRepository, ModuloRepository>();
+builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
 
 
 // -------------------------

@@ -50,10 +50,10 @@ public class MaterialService : IMaterialService
         return new MaterialDTO
         {
             Id = material.Id,
-            IdCurso = material.IdCurso,
-            NomeArquivo = material.NomeArquivo,
-            Tipo = material.Tipo,
-            DataUpload = material.DataUpload,
+            IdCurso = material.IdCourse,
+            NomeArquivo = material.FileName,
+            Tipo = material.Type,
+            DataUpload = material.DateUpload,
             Url = url
         };
     }
@@ -65,11 +65,11 @@ public class MaterialService : IMaterialService
         return materiais.Select(m => new MaterialDTO
         {
             Id = m.Id,
-            IdCurso = m.IdCurso,
-            NomeArquivo = m.NomeArquivo,
-            Tipo = m.Tipo,
-            DataUpload = m.DataUpload,
-            Url = $"/uploads/materials/{m.NomeArquivo}"
+            IdCurso = m.IdCourse,
+            NomeArquivo = m.FileName,
+            Tipo = m.Type,
+            DataUpload = m.DateUpload,
+            Url = $"/uploads/materials/{m.FileName}"
         });
     }
 
@@ -87,11 +87,11 @@ public class MaterialService : IMaterialService
         return new MaterialDTO
         {
             Id = material.Id,
-            IdCurso = material.IdCurso,
-            NomeArquivo = material.NomeArquivo,
-            Tipo = material.Tipo,
-            DataUpload = material.DataUpload,
-            Url = material.Caminho // ou dto.Url
+            IdCurso = material.IdCourse,
+            NomeArquivo = material.FileName,
+            Tipo = material.Type,
+            DataUpload = material.DateUpload,
+            Url = material.Path // ou dto.Url
         };
     }
 
@@ -104,27 +104,27 @@ public class MaterialService : IMaterialService
         return new MaterialDTO
         {
             Id = material.Id,
-            IdCurso = material.IdCurso,
-            NomeArquivo = material.NomeArquivo,
-            Tipo = material.Tipo,
-            DataUpload = material.DataUpload,
-            Url = $"/uploads/materials/{material.NomeArquivo}"
+            IdCurso = material.IdCourse,
+            NomeArquivo = material.FileName,
+            Tipo = material.Type,
+            DataUpload = material.DateUpload,
+            Url = $"/uploads/materials/{material.FileName}"
         };
     }
 
     public async Task<IEnumerable<MaterialDTO>> ListarPorCursoAsync(int idCurso)
     {
-        var materiais = await _repository.GetByCursoAsync(idCurso);
+        var materiais = await _repository.GetByCourseAsync(idCurso);
 
         // Conversão manual sem usar AutoMapper
         return materiais.Select(m => new MaterialDTO
         {
             Id = m.Id,
-            IdCurso = m.IdCurso,
-            NomeArquivo = m.NomeArquivo,
-            Tipo = m.Tipo,
-            DataUpload = m.DataUpload,
-            Url = $"/uploads/materials/{m.NomeArquivo}"
+            IdCurso = m.IdCourse,
+            NomeArquivo = m.FileName,
+            Tipo = m.Type,
+            DataUpload = m.DateUpload,
+            Url = $"/uploads/materials/{m.FileName}"
         });
     }
 }

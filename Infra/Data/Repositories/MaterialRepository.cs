@@ -19,10 +19,10 @@ public class MaterialRepository : IMaterialRepository
         return material;
     }
 
-    public async Task<IEnumerable<Material>> GetByCursoAsync(int cursoId)
+    public async Task<IEnumerable<Material>> GetByCourseAsync(int idCourse)
     {
         return await _context.Materiais
-            .Where(m => m.IdCurso == cursoId)
+            .Where(m => m.IdCourse == idCourse)
             .ToListAsync();
     }
 

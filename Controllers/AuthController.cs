@@ -11,7 +11,7 @@ public class AuthController : ControllerBase
     public AuthController(IAuthService authService) => _authService = authService;
 
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResult>> Register([FromBody] UsuarioRegisterDTO dto)
+    public async Task<ActionResult<AuthResult>> Register([FromBody] UserRegisterDTO dto)
     {
         var result = await _authService.RegisterAsync(dto);
         return result.Sucesso ? Ok(result) : BadRequest(result);

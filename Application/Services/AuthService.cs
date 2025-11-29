@@ -10,23 +10,23 @@ namespace TreinamentosCorp.API.Application.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IUserRepository _usuarioRepository;
 
-        public AuthService(IUsuarioRepository usuarioRepository)
+        public AuthService(IUserRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<AuthResult> RegisterAsync(UsuarioRegisterDTO dto)
+        public async Task<AuthResult> RegisterAsync(UserRegisterDTO dto)
         {
             var exists = await _usuarioRepository.GetByEmailAsync(dto.Email);
             if (exists != null)
                 return new AuthResult { Sucesso = false, Mensagem = "Email já cadastrado." };
 
             var senhaHash = HashPassword(dto.Senha);
-            var usuario = new Usuario(dto.Nome, dto.Email, "Padrão", senhaHash);
+            var usuario = new User(dto.Nome, dto.Email, "Padrão", senhaHash);
 
-            await _usuarioRepository.CriarAsync(usuario);
+            await _usuarioRepository.CreateAsync(usuario);
 
             return new AuthResult { Sucesso = true, Mensagem = "Usuário registrado com sucesso." };
         }
@@ -37,7 +37,7 @@ namespace TreinamentosCorp.API.Application.Services
             if (usuario == null)
                 return new AuthResult { Sucesso = false, Mensagem = "Usuário não encontrado." };
 
-            if (!VerifyPassword(dto.Senha, usuario.SenhaHash))
+            if (!VerifyPassword(dto.Senha, usuario.PasswordHash))
                 return new AuthResult { Sucesso = false, Mensagem = "Senha incorreta." };
 
             return new AuthResult { Sucesso = true, Mensagem = "Login realizado com sucesso." };

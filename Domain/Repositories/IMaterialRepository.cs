@@ -6,7 +6,7 @@ namespace TreinamentosCorp.API.Domain.Repositories
     {
         Task<Material> CreateAsync(Material material);
         Task<Material?> GetByIdAsync(int id);
-        Task<IEnumerable<Material>> GetByCursoAsync(int cursoId);
+        Task<IEnumerable<Material>> GetByCourseAsync(int cursoId);
         Task<IEnumerable<Material>> GetAllAsync();
     }
 }

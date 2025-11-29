@@ -8,14 +8,14 @@ namespace TreinamentosCorp.API.Infra.Data.Context
         public DataContext(DbContextOptions<DataContext> options)
             : base(options) { }
 
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Avaliacao> Avaliacoes { get; set; }
-        public DbSet<Pergunta> Perguntas { get; set; }
-        public DbSet<Certificado> Certificados { get; set; }
-        public DbSet<Curso> Cursos { get; set; }
-        public DbSet<Presenca> Presencas { get; set; }
-        public DbSet<Modulo> Modulos { get; set; }
-        public DbSet<ProgressoCurso> ProgressoCursos { get; set; }
+        public DbSet<User> Usuarios { get; set; }
+        public DbSet<Assessment> Avaliacoes { get; set; }
+        public DbSet<Question> Perguntas { get; set; }
+        public DbSet<Certificate> Certificados { get; set; }
+        public DbSet<Course> Cursos { get; set; }
+        public DbSet<Presence> Presencas { get; set; }
+        public DbSet<Module> Modulos { get; set; }
+        public DbSet<CourseProgress> ProgressoCursos { get; set; }
         public DbSet<Material> Materiais { get; set; }
 
 
@@ -24,36 +24,36 @@ namespace TreinamentosCorp.API.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // ------------------ Usuario ------------------
-            modelBuilder.Entity<Usuario>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("Usuarios");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nome).HasMaxLength(100).IsRequired();
+                entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
                 entity.Property(e => e.Email).HasMaxLength(150).IsRequired();
-                entity.Property(e => e.Cargo).HasMaxLength(100).IsRequired();
-                entity.Property(e => e.SenhaHash).HasMaxLength(200).IsRequired();
-                entity.Property(e => e.Ativo).IsRequired();
+                entity.Property(e => e.Position).HasMaxLength(100).IsRequired();
+                entity.Property(e => e.PasswordHash).HasMaxLength(200).IsRequired();
+                entity.Property(e => e.Active).IsRequired();
             });
 
             // -------------- Avaliacao ---------------
-            modelBuilder.Entity<Avaliacao>(entity =>
+            modelBuilder.Entity<Assessment>(entity =>
             {
                 entity.ToTable("Avaliacoes");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.IdUsuario).IsRequired();
-                entity.Property(e => e.IdCurso).IsRequired();
-                entity.Property(e => e.Nota);
-                entity.Property(e => e.Comentario).HasMaxLength(500);
+                entity.Property(e => e.IdUser).IsRequired();
+                entity.Property(e => e.IdCourse).IsRequired();
+                entity.Property(e => e.Note);
+                entity.Property(e => e.Comment).HasMaxLength(500);
             });
 
             // -------------- Pergunta ---------
-            modelBuilder.Entity<Pergunta>(entity =>
+            modelBuilder.Entity<Question>(entity =>
             {
                 entity.ToTable("Perguntas");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Texto).HasMaxLength(500).IsRequired();
+                entity.Property(e => e.Text).HasMaxLength(500).IsRequired();
 
-                entity.Property(e => e.Opcoes)
+                entity.Property(e => e.Options)
                     .HasConversion(
                         v => System.Text.Json.JsonSerializer.Serialize(v, (System.Text.Json.JsonSerializerOptions?)null),
                         v => string.IsNullOrEmpty(v)
@@ -65,49 +65,49 @@ namespace TreinamentosCorp.API.Infra.Data.Context
             });
 
             // ----------- Certificado --------------
-            modelBuilder.Entity<Certificado>(entity =>
+            modelBuilder.Entity<Certificate>(entity =>
             {
                 entity.ToTable("Certificados");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.IdUsuario).IsRequired();
-                entity.Property(e => e.IdCurso).IsRequired();
-                entity.Property(e => e.DataEmissao).IsRequired();
-                entity.Property(e => e.CodigoValidacao)
+                entity.Property(e => e.IdUser).IsRequired();
+                entity.Property(e => e.IdCourse).IsRequired();
+                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.ValidationCode)
                       .HasMaxLength(20)
                       .IsRequired();
             });
 
             // ------------- Curso ----------------
-            modelBuilder.Entity<Curso>(entity =>
+            modelBuilder.Entity<Course>(entity =>
             {
                 entity.ToTable("Cursos");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nome).HasMaxLength(150).IsRequired();
-                entity.Property(e => e.Descricao).HasMaxLength(500).IsRequired();
-                entity.Property(e => e.NotaMinima).IsRequired();
+                entity.Property(e => e.Name).HasMaxLength(150).IsRequired();
+                entity.Property(e => e.Description).HasMaxLength(500).IsRequired();
+                entity.Property(e => e.MinimumNote).IsRequired();
             });
 
             // ----------- Presenca ----------------
-            modelBuilder.Entity<Presenca>(entity =>
+            modelBuilder.Entity<Presence>(entity =>
             {
                 entity.ToTable("Presencas");
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.IdUsuario).IsRequired();
-                entity.Property(e => e.IdCurso).IsRequired();
-                entity.Property(e => e.Data).IsRequired();
-                entity.Property(e => e.Presente).IsRequired();
+                entity.Property(e => e.IdUser).IsRequired();
+                entity.Property(e => e.IdCourse).IsRequired();
+                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.Present).IsRequired();
             });
 
             //--------------Progresso--------
-            modelBuilder.Entity<ProgressoCurso>(entity =>
+            modelBuilder.Entity<CourseProgress>(entity =>
             {
                 entity.ToTable("ProgressoCursos");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.IdUsuario).IsRequired();
-                entity.Property(e => e.IdCurso).IsRequired();
-                entity.Property(e => e.IdModulo).IsRequired();
-                entity.Property(e => e.DataConclusao).IsRequired();
+                entity.Property(e => e.IdUser).IsRequired();
+                entity.Property(e => e.IdCourse).IsRequired();
+                entity.Property(e => e.IdModule).IsRequired();
+                entity.Property(e => e.Date).IsRequired();
             });
 
             //----------------Material----------
@@ -116,11 +116,11 @@ namespace TreinamentosCorp.API.Infra.Data.Context
                 entity.ToTable("Materiais");
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.IdCurso).IsRequired();
-                entity.Property(e => e.NomeArquivo).HasMaxLength(200).IsRequired();
-                entity.Property(e => e.Caminho).HasMaxLength(300).IsRequired();
-                entity.Property(e => e.Tipo).HasMaxLength(50).IsRequired();
-                entity.Property(e => e.DataUpload).IsRequired();
+                entity.Property(e => e.IdCourse).IsRequired();
+                entity.Property(e => e.FileName).HasMaxLength(200).IsRequired();
+                entity.Property(e => e.Path).HasMaxLength(300).IsRequired();
+                entity.Property(e => e.Type).HasMaxLength(50).IsRequired();
+                entity.Property(e => e.DateUpload).IsRequired();
             });
 
         }
